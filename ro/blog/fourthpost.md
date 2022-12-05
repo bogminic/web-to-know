@@ -1,5 +1,5 @@
 ---
-title: Esta es mi cuarta publicación.
+title: Acesta este al patrulea blog
 slugOverride: cuarta publicación
 date: 2018-09-30
 layout: layouts/post.njk

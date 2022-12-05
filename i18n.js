@@ -9,14 +9,14 @@ module.exports = {
       about: "About Me",
     }
   },
-  es: {
-    also: "Esta página también está disponible en:",
+  ro: {
+    also: "Această pagină este deasemenea disponibilă și în:",
     previous: "Anterior",
-    next: "Siguiente",
+    next: "Următorul",
     nav: {
-      home: "Página de inicio",
-      archive: "Archivo",
-      about: "Acerca de mí",
+      home: "Acasă",
+      archive: "Arhivă",
+      about: "Despre mine",
     }
   }
 };

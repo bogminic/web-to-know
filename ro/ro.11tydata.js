@@ -1,5 +1,5 @@
 module.exports = {
-  "lang": "es",
+  "lang": "ro",
   "permalink": function(data) {
     // Slug override is set in the post for localized URL slugs
     // e.g. /es/blog/fourthpost.md will optionally write to
