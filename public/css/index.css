@@ -51,7 +51,7 @@ html {
   overflow-y: scroll;
 }
 body {
-  max-width: 40em;
+  max-width: 1100px;
 }
 
 p:last-child {
@@ -124,7 +124,7 @@ code {
 }
 
 /* Header */
-header {
+body > header {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -202,6 +202,12 @@ header {
   font-weight: 700;
 }
 
+.tmpl-post {
+  display: grid;
+  grid-template-columns: 750px 250px;
+  padding: 30px;
+  justify-content: space-between;
+}
 
 /* Tags */
 .post-tag {
@@ -212,6 +218,11 @@ header {
 }
 .postlist-item > .post-tag {
   align-self: center;
+}
+
+.post-nav {
+  position: sticky;
+  top:20px;
 }
 
 /* Tags list */
