@@ -10,10 +10,21 @@ templateClass: tmpl-post
     <ul class="post-metadata">
       <li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
       {%- for tag in tags | filterTagList %}
-      {%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-      <li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
+        {%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
+        <li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
       {%- endfor %}
+
     </ul>
+    {%- if author %}
+      {%- set myAuthors = authors | getAuthors(metadata.authors, author) %}
+      <p>
+      {{ "i18n.writtenBy" | i18n }}
+        {%- for theAuthor in myAuthors %}
+          <a href="/authors/{{ theAuthor.key }}">{{ theAuthor.name }}</a>
+          {%- if not loop.last %}, {% endif %}
+        {%- endfor %}
+      </p>
+    {%- endif %}
   </header>
 
   {{ content | safe }}

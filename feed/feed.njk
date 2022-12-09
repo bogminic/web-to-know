@@ -10,16 +10,21 @@ permalink: /feed/feed.xml
 	<link href="{{ metadata.url | addPathPrefixToFullUrl }}"/>
 	<updated>{{ collections.posts | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
 	<id>{{ metadata.url }}</id>
-	<author>
-		<name>{{ metadata.author.name }}</name>
-		<email>{{ metadata.author.email }}</email>
-	</author>
 	{%- for post in collections.posts | reverse %}
 	{% set absolutePostUrl %}{{ post.url | htmlBaseUrl(metadata.url) }}{% endset %}
 	<entry>
 		<title>{{ post.data.title }}</title>
 		<link href="{{ absolutePostUrl }}"/>
 		<updated>{{ post.date | dateToRfc3339 }}</updated>
+		{%- if post.data.author %}
+		{%- set myAuthors = authors | getAuthors(metadata.authors, post.data.author) %}
+		{%- for theAuthor in myAuthors %}
+		<author>
+			<name>{{ theAuthor.name }}</name>
+			<email>{{ theAuthor.email }}</email>
+		</author>
+		{%- endfor %}
+		{%- endif %}
 		<id>{{ absolutePostUrl }}</id>
 		<content type="html">{{ post.templateContent | transformWithHtmlBase(absolutePostUrl, post.url) }}</content>
 	</entry>

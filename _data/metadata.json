@@ -1,11 +1,32 @@
 {
-  "title": "Your Blog Name",
-  "url": "https://example.com/",
+  "title": "Web to Know",
+  "url": "https://webtoknow.com/",
   "language": "en",
   "description": "I am writing about my experiences as a naval navel-gazer.",
   "author": {
     "name": "Your Name Here",
     "email": "youremailaddress@example.com",
     "url": "https://example.com/about-me/"
-  }
+  },
+  "authors": [
+    {
+      "key":"bogminic",
+      "name":"Bogdan Mihai Nicolae",
+      "bio": "Bogdan likes hiking",
+      "email": "youremailaddress@example.com",
+      "website":"https://www.bogminic.com",
+      "photo":"https://bogminic.com/images/bogdan.png",
+      "twitter":"bogminic"
+    },
+    {
+      "key":"damun",
+      "name":"Dana Maria Nicolae",
+      "bio":"Dana like dogs.",
+      "email": "youremailaddress@example.com",
+      "website":"https://remotesynthesis.com/",
+      "photo":"https://media-exp1.licdn.com/dms/image/C5603AQGs3gbVxZg4-g/profile-displayphoto-shrink_800_800/0/1517031288300?e=1675900800&v=beta&t=Ybc9YcIVSAgXc4vFqMkhGtxvvxy2HinnamIGO_5Fa64",
+      "twitter":"damun"
+    }
+  ]
 }
+

@@ -4,6 +4,7 @@ module.exports = {
     also: "This page is also available in:",
     previous: "Previous",
     next: "Next",
+    writtenBy: "Written by",
     nav: {
       home: "Home",
       archive: "Archive",
@@ -15,6 +16,7 @@ module.exports = {
     also: "Această pagină este disponibilă și în:",
     previous: "Anterior",
     next: "Următorul",
+    writtenBy: "Scris de",
     nav: {
       home: "Acasă",
       archive: "Arhivă",

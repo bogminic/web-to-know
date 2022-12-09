@@ -57,6 +57,20 @@ module.exports = function(eleventyConfig) {
     return Math.min.apply(null, numbers);
   });
 
+  // Return all the authors added to a page
+  eleventyConfig.addFilter("getAuthors", (undefined, authors, label) => {
+		let labels = label.split(',');
+		return authors.filter(a => labels.includes(a.key));
+	});
+
+	eleventyConfig.addFilter("getPostsByAuthor", (undefined, posts, author) => {
+		return posts.filter(p => {
+			if(!p.data.author) return false;
+			let authors = p.data.author.split(',');
+			return authors.includes(author);
+		});
+	});
+
   // Return all the tags used in a collection
   eleventyConfig.addFilter("getAllTags", collection => {
     let tagSet = new Set();

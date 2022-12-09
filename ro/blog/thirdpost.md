@@ -2,6 +2,7 @@
 title: Al treilea blog
 date: 2018-09-30
 layout: layouts/post.njk
+author: nicobog,damun
 ---
 Aproveche los marcos ágiles para proporcionar una sinopsis sólida para descripciones generales de alto nivel. Los enfoques iterativos de la estrategia corporativa fomentan el pensamiento colaborativo para promover la propuesta de valor general. Hacer crecer orgánicamente la visión holística del mundo de la innovación disruptiva a través de la diversidad y el empoderamiento en el lugar de trabajo.
 
