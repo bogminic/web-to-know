@@ -8,23 +8,27 @@ templateClass: tmpl-post
     <h1>{{ title }}</h1>
 
     <ul class="post-metadata">
-      <li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
+      {# Date #}
+      <li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time>,</li>
+      {# Tags #}
       {%- for tag in tags | filterTagList %}
         {%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-        <li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
+        <li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>,</li>
       {%- endfor %}
-
+      {# Time to read #}
+      <li>{{ content | timeToRead (lang) }}  {{ "i18n.toRead" | i18n }},</li>
+      {# Authors #}
+      {%- if author %}
+      <li>
+        {%- set myAuthors = authors | getAuthors(metadata.authors, author) %}
+        {{ "i18n.writtenBy" | i18n }}
+          {%- for theAuthor in myAuthors %}
+            <a href="/authors/{{ theAuthor.key }}">{{ theAuthor.name }}</a>
+            {%- if not loop.last %}, {% endif %}
+          {%- endfor %}
+      </li>
+      {%- endif %}
     </ul>
-    {%- if author %}
-      {%- set myAuthors = authors | getAuthors(metadata.authors, author) %}
-      <p>
-      {{ "i18n.writtenBy" | i18n }}
-        {%- for theAuthor in myAuthors %}
-          <a href="/authors/{{ theAuthor.key }}">{{ theAuthor.name }}</a>
-          {%- if not loop.last %}, {% endif %}
-        {%- endfor %}
-      </p>
-    {%- endif %}
   </header>
 
   {{ content | safe }}

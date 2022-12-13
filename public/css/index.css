@@ -234,9 +234,6 @@ body > header {
   padding: 0;
   margin: 0;
 }
-.post-metadata time {
-  margin-right: 1em;
-}
 
 /* Infobox */
 :root {
@@ -273,4 +270,8 @@ a[href].direct-link:focus:visited,
 :hover > a[href].direct-link,
 :hover > a[href].direct-link:visited {
   color: #aaa;
+}
+
+.toc a {
+  font-size: 14px;
 }

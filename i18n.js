@@ -5,6 +5,7 @@ module.exports = {
     previous: "Previous",
     next: "Next",
     writtenBy: "Written by",
+    toRead: 'to read',
     nav: {
       home: "Home",
       archive: "Archive",
@@ -17,6 +18,7 @@ module.exports = {
     previous: "Anterior",
     next: "Următorul",
     writtenBy: "Scris de",
+    toRead: 'de citit',
     nav: {
       home: "Acasă",
       archive: "Arhivă",
