@@ -5,6 +5,21 @@ templateClass: tmpl-post
 
 <article>
   <header>
+
+    {%- set navPages = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key, {allowMissing: true}) %}
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        {%- for entry in navPages %}
+        <li class="breadcrumb-item">
+          <a href="{{ entry.url }}">{{ entry.title | i18n }}</a>
+        </li>
+        {%- endfor %}
+        <li class="breadcrumb-item" aria-current="page">
+          {{ title }}
+        </li>
+      </ol>
+    </nav> 
+    
     <h1>{{ title }}</h1>
 
     <ul class="post-metadata">

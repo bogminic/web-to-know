@@ -8,8 +8,10 @@ module.exports = {
     toRead: 'to read',
     nav: {
       home: "Home",
-      archive: "Archive",
+      blog: "Blog",
       about: "About us",
+      tutorials: "Tutorials",
+      jobsInIt: "Jobs in IT"
     }
   },
   ro: {
@@ -21,8 +23,10 @@ module.exports = {
     toRead: 'de citit',
     nav: {
       home: "Acasă",
-      archive: "Arhivă",
+      blog: "Blog",
       about: "Despre noi",
+      tutorials: "Tutorials",
+      jobsInIt: "Jobs in IT"
     }
   }
 };
