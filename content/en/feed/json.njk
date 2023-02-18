@@ -9,10 +9,6 @@ permalink: /feed/feed.json
 	"home_page_url": "{{ metadata.url | addPathPrefixToFullUrl }}",
 	"feed_url": "{{ permalink | htmlBaseUrl(metadata.url) }}",
 	"description": "{{ metadata.description }}",
-	"author": {
-		"name": "{{ metadata.author.name }}",
-		"url": "{{ metadata.author.url }}"
-	},
 	"items": [
 		{%- for post in collections.posts | reverse %}
 		{%- set absolutePostUrl = post.url | htmlBaseUrl(metadata.url) %}
@@ -21,9 +17,21 @@ permalink: /feed/feed.json
 			"url": "{{ absolutePostUrl }}",
 			"title": "{{ post.data.title }}",
 			"content_html": {% if post.templateContent %}{{ post.templateContent | transformWithHtmlBase(absolutePostUrl, post.url) | dump | safe }}{% else %}""{% endif %},
-			"date_published": "{{ post.date | dateToRfc3339 }}"
+			"date_published": "{{ post.date | dateToRfc3339 }}",
+			{%- if post.data.author %}
+      "authors": [
+        {%- set myAuthors = authors | getAuthors(metadata.authors, post.data.author) %}
+        {%- for theAuthor in myAuthors %}
+        {
+          "name": "{{ theAuthor.name }}",
+          "url": "{{ theAuthor.email }}"
+        }{%- if not loop.last %},{% endif %}
+        {%- endfor %}
+      ]
+			{%- endif %}
+
 		}
-		{% if not loop.last %},{% endif %}
+		{%- if not loop.last %},{% endif %}
 		{%- endfor %}
 	]
 }

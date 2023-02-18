@@ -7,5 +7,24 @@ module.exports = {
 		"name": "Bogdan Nicolae",
 		"email": "bmnicolae@gmail.com",
 		"url": "https://bogminic.com"
-	}
+	},
+	"authors": [
+    {
+      "key":"bogminic",
+      "name":"Bogdan Mihai Nicolae",
+      "bio": "Bogdan likes hiking",
+      "email": "youremailaddress@example.com",
+      "website":"https://www.bogminic.com",
+      "photo":"https://bogminic.com/images/bogdan-nicolae.jpg",
+      "twitter":"bogminic"
+    },
+    {
+      "key":"damun",
+      "name":"Dana Maria Nicolae",
+      "bio":"Dana like dogs.",
+      "email": "youremailaddress@example.com",
+      "photo":"https://bogminic.com/images/dana-nicolae.jpg",
+      "twitter":"damun"
+    }
+  ]
 }

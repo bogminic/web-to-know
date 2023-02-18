@@ -85,6 +85,20 @@ module.exports = function(eleventyConfig) {
 		return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
 	});
 
+	// Return all the authors added to a page
+	eleventyConfig.addFilter("getAuthors", (undefined, authors, label) => {
+		let labels = label.split(',');
+		return authors.filter(a => labels.includes(a.key));
+	});
+
+	eleventyConfig.addFilter("getPostsByAuthor", (undefined, posts, author) => {
+		return posts.filter(p => {
+			if(!p.data.author) return false;
+			let authors = p.data.author.split(',');
+			return authors.includes(author);
+		});
+	});
+
 	// Customize Markdown library settings:
 	eleventyConfig.amendLibrary("md", mdLib => {
 		mdLib.use(markdownItAnchor, {
