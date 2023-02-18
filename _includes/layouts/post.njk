@@ -18,13 +18,28 @@ layout: layouts/base.njk
 
 {{ content | safe }}
 
+
+
+	{% set i18nLinks = page.url | locale_links %}
+	{% if i18nLinks.length %}
+	<ul>
+		<li>
+			{{ "i18n.also" | i18n }}
+			{%- for link in i18nLinks %}
+			<a href="{{ link.url }}" lang="{{ link.lang }}" hreflang="{{ link.lang }}">{{ link.label }}</a>
+			{%- if not loop.last %},{% endif %}
+			{%- endfor -%}
+		</li>
+	</ul>
+	{% endif %}
+
 {%- if collections.posts %}
 {%- set previousPost = collections.posts | getPreviousCollectionItem %}
 {%- set nextPost = collections.posts | getNextCollectionItem %}
 {%- if nextPost or previousPost %}
 <ul class="links-nextprev">
-	{%- if previousPost %}<li>Previous: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-	{%- if nextPost %}<li>Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
+	{%- if previousPost %}<li>{{ "i18n.previous" | i18n }}: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %}
+	{%- if nextPost %}<li>{{ "i18n.next" | i18n }}: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
 </ul>
 {%- endif %}
 {%- endif %}

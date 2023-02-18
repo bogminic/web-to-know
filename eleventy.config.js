@@ -1,11 +1,14 @@
 const { DateTime } = require("luxon");
+const rosetta = require("rosetta");
 const markdownItAnchor = require("markdown-it-anchor");
 
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
-const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+const { EleventyI18nPlugin, EleventyHtmlBasePlugin } = require("@11ty/eleventy");
+
+const languageStrings = require("./i18n.js");
 
 module.exports = function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
@@ -32,7 +35,12 @@ module.exports = function(eleventyConfig) {
 	});
 	eleventyConfig.addPlugin(pluginNavigation);
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
+	eleventyConfig.addPlugin(EleventyI18nPlugin, {
+    defaultLanguage: "en",
+    errorMode: "allow-fallback",
+  });
 	eleventyConfig.addPlugin(pluginBundle);
+
 
 	// Filters
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
@@ -87,6 +95,19 @@ module.exports = function(eleventyConfig) {
 			level: [1,2,3,4],
 			slugify: eleventyConfig.getFilter("slugify")
 		});
+	});
+
+	// i18n filter using Rosetta
+	const rosettaLib = rosetta(languageStrings);
+
+	eleventyConfig.addFilter("i18n", function (key, lang) {
+		const I18N_PREFIX = "i18n.";
+		if(key.startsWith(I18N_PREFIX)) {
+			key = key.slice(I18N_PREFIX.length);
+		}
+		// depends on page.lang in 2.0.0
+		let page = this.page || this.ctx?.page || this.context?.environments?.page || {};
+		return rosettaLib.t(key, {}, lang || page.lang);
 	});
 
 	// Features to make your build faster (when you need them)

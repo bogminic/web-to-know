@@ -1,10 +1,10 @@
 ---
 layout: layouts/home.njk
 eleventyNavigation:
-  key: Archive
+  key: nav.blog
   order: 2
 ---
-<h1>Archive</h1>
+<h1>{{ "i18n.nav.blog" | i18n }}</h1>
 
 {% set postslist = collections.posts %}
 {% include "postslist.njk" %}
