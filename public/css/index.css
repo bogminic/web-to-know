@@ -273,3 +273,7 @@ article > header {
 	display: block;
 	padding: 0 0 16px 0;
 }
+
+.toc a {
+  font-size: 14px;
+}

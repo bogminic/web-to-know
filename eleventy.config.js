@@ -7,6 +7,7 @@ const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
 const pluginTOC = require('eleventy-plugin-nesting-toc');
+const pluginTimeToRead = require('eleventy-plugin-time-to-read');
 const { EleventyI18nPlugin, EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 const languageStrings = require("./i18n.js");
@@ -41,6 +42,14 @@ module.exports = function(eleventyConfig) {
     errorMode: "allow-fallback",
   });
 	eleventyConfig.addPlugin(pluginTOC);
+	eleventyConfig.addPlugin(pluginTimeToRead, {
+    output: function (data) {
+    const numberOfEmoji = Math.max(1, Math.round(data.totalSeconds / 60));
+    const emojiString = '🕒'.repeat(numberOfEmoji);
+
+    return `${emojiString} ${data.timing}`; // 🕒🕒🕒 3 minutes to read
+  }
+  });
 	eleventyConfig.addPlugin(pluginBundle);
 
 

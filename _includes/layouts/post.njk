@@ -16,6 +16,8 @@ layout: layouts/base.njk
 			{%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
 			<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
 			{%- endfor %}
+			{# Time to read #}
+      <li>{{ content | timeToRead (lang) }}  {{ "i18n.toRead" | i18n }},</li>
 		</ul>
 
 		{%- if author %}
