@@ -6,6 +6,7 @@ const pluginRss = require("@11ty/eleventy-plugin-rss");
 const pluginSyntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
+const pluginTOC = require('eleventy-plugin-nesting-toc');
 const { EleventyI18nPlugin, EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 const languageStrings = require("./i18n.js");
@@ -39,6 +40,7 @@ module.exports = function(eleventyConfig) {
     defaultLanguage: "en",
     errorMode: "allow-fallback",
   });
+	eleventyConfig.addPlugin(pluginTOC);
 	eleventyConfig.addPlugin(pluginBundle);
 
 
