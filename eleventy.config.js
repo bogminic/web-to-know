@@ -90,6 +90,11 @@ module.exports = function(eleventyConfig) {
 		return Array.from(tagSet);
 	});
 
+	// Return all posts not ignored (pageIgnore = true)
+	eleventyConfig.addFilter("getAllPostNotIgnored", posts => {
+		return posts.filter(post => !post.data.pageIgnore);
+	});
+
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
 		return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
 	});
