@@ -185,10 +185,18 @@ header {
 }
 .postlist-item {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
+	flex-direction: column;
 	margin-bottom: 1em;
 }
+
+.postlist-authors {
+	display: flex;
+}
+
+.postlist-title {
+	margin:0;
+}
+
 .postlist-item:before {
 	display: inline-block;
 	pointer-events: none;

@@ -5,7 +5,7 @@ eleventyNavigation:
   key: nav.jobsInIt
   parent: nav.blog
 date: 2023-01-05
-author: bogminic
+author: bogminic,damun
 tags:
   - jobs in IT
 layout: layouts/post.njk
