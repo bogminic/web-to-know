@@ -11,6 +11,7 @@ permalink: /feed/feed.json
 	"description": "{{ metadata.description }}",
 	"items": [
 		{%- for post in collections.posts | reverse %}
+		{%- if post.data.pageIgnore !== true %}
 		{%- set absolutePostUrl = post.url | htmlBaseUrl(metadata.url) %}
 		{
 			"id": "{{ absolutePostUrl }}",
@@ -32,6 +33,7 @@ permalink: /feed/feed.json
 
 		}
 		{%- if not loop.last %},{% endif %}
+		{%- endif %}
 		{%- endfor %}
 	]
 }
