@@ -6,35 +6,38 @@ A starter repository showing how to build a blog with the [Eleventy](https://www
 
 ## Getting Started
 
-1. Clone this Repository
+* [Want a more generic/detailed getting started guide?](https://www.11ty.dev/docs/getting-started/)
+
+1. Make a directory and navigate to it:
 
 ```
-git clone https://github.com/11ty/eleventy-base-blog.git my-blog-name
-```
-
-2. Navigate to the directory
-
-```
+mkdir my-blog-name
 cd my-blog-name
 ```
 
-3. Have a look at `eleventy.config.js` to see if you want to configure any Eleventy options differently.
-4. Install dependencies
+2. Clone this Repository
+
+```
+git clone https://github.com/11ty/eleventy-base-blog.git .
+```
+
+_Optional:_ Review `eleventy.config.js` and `_data/metadata.js` to configure the site’s options and data.
+
+3. Install dependencies
 
 ```
 npm install
 ```
 
-5. Edit `_data/metadata.js` to change the site data.
-6. Run Eleventy
+4. Run Eleventy
 
-Generate a production-ready build:
+Generate a production-ready build to the `_site` folder:
 
 ```
 npx @11ty/eleventy
 ```
 
-Or build and host locally on a local development server:
+Or build and host on a local development server:
 
 ```
 npx @11ty/eleventy --serve
@@ -96,7 +99,7 @@ Deploy this Eleventy site in just a few clicks on these services:
 ### Implementation Notes
 
 - `content/about/index.md` is an example of a content page.
-- `content/blog/` has the blog posts but really they can live in any directory. They need only the `post` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
+- `content/blog/` has the blog posts but really they can live in any directory. They need only the `posts` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
 - Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your front matter to add a template to the top level site navigation. This is in use on `content/index.njk` and `content/about/index.md`.
 - Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
 - The `public` folder in your input directory will be copied to the output folder (via `addPassthroughCopy` in the `eleventy.config.js` file). This means `./public/css/*` will live at `./_site/css/*` after your build completes.
@@ -109,3 +112,12 @@ Deploy this Eleventy site in just a few clicks on these services:
 	- `_includes/layouts/post.njk`: the blog post template (wrapped into `base.njk`)
 - `_includes/postslist.njk` is a Nunjucks include and is a reusable component used to display a list of all the posts. `content/index.njk` has an example of how to use it.
 
+If your site enforces a Content Security Policy (as public-facing sites should), either, in `base.njk`, disable
+```html
+<style>{% getBundle "css" %}</style>
+```
+and enable
+```html
+<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">
+```
+or configure the server with the CSP directive `style-src: 'unsafe-inline'` (which is less secure).
