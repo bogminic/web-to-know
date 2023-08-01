@@ -9,20 +9,24 @@ layout: layouts/base.njk
 <article>
 	<header>
 		{%- set navPages = collections.all | eleventyNavigationBreadcrumb(eleventyNavigation.key, {allowMissing: true}) %}
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        {%- for entry in navPages %}
-        <li class="breadcrumb-item">
-          <a href="{{ entry.url }}">{{ entry.title | i18n }}</a>
-        </li>
-        {%- endfor %}
-        <li class="breadcrumb-item" aria-current="page">
-          {{ title }}
-        </li>
-      </ol>
-    </nav>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				{%- for entry in navPages %}
+				<li class="breadcrumb-item">
+				<a href="{{ entry.url }}">{{ entry.title | i18n }}</a>
+				</li>
+				{%- endfor %}
+				<li class="breadcrumb-item" aria-current="page">
+				{{ title }}
+				</li>
+			</ol>
+		</nav>
 
 		<h1>{{ title }}</h1>
+
+		{%- if picture %}
+			{% image picture, "Dogs", "test" %}
+		{%- endif %}
 
 		<ul class="post-metadata">
 			<li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
@@ -31,19 +35,19 @@ layout: layouts/base.njk
 			<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
 			{%- endfor %}
 			{# Time to read #}
-      <li>{{ content | timeToRead (lang) }}  {{ "i18n.toRead" | i18n }},</li>
+      		<li>{{ content | timeToRead (lang) }}  {{ "i18n.toRead" | i18n }},</li>
 		</ul>
 
 		{%- if author %}
-      {%- set myAuthors = authors | getAuthors(metadata.authors, author) %}
-      <p>
-      {{ "i18n.writtenBy" | i18n }}
-        {%- for theAuthor in myAuthors %}
-          <a href="/authors/{{ theAuthor.key }}">{{ theAuthor.name }}</a>
-          {%- if not loop.last %}, {% endif %}
-        {%- endfor %}
-      </p>
-    {%- endif %}
+      		{%- set myAuthors = authors | getAuthors(metadata.authors, author) %}
+			<p>
+			{{ "i18n.writtenBy" | i18n }}
+				{%- for theAuthor in myAuthors %}
+				<a href="/authors/{{ theAuthor.key }}">{{ theAuthor.name }}</a>
+				{%- if not loop.last %}, {% endif %}
+				{%- endfor %}
+			</p>
+    	{%- endif %}
 	</header>
 
 	<nav class="post-nav">
@@ -53,8 +57,8 @@ layout: layouts/base.njk
 
 	{{ content | safe }}
 
-  <footer>
-		 <hr>
+    <footer>
+		<hr>
 		{% set i18nLinks = page.url | locale_links %}
 		{% if i18nLinks.length %}
 		<p>
@@ -76,6 +80,5 @@ layout: layouts/base.njk
 		</ul>
 		{%- endif %}
 		{%- endif %}
-
  	</footer>
 </article>

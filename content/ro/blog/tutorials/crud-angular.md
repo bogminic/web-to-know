@@ -7,6 +7,7 @@ eleventyNavigation:
   parent: nav.blog
 date: 2023-01-05
 author: bogminic
+picture: "dogs-and-presents.jpg"
 tags:
   - Tutorials
   - Angular

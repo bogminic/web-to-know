@@ -7,6 +7,7 @@ eleventyNavigation:
   parent: nav.tutorials
 date: 2023-01-05
 author: bogminic
+picture: "dogs-and-presents.jpg"
 tags:
   - Tutorials
   - Angular
@@ -14,6 +15,8 @@ layout: layouts/post.njk
 ---
 
 This tutorial will provide an introduction to working with REST APIs and Angular, and will cover the key concepts and techniques needed to build web applications that can `CREATE`, `READ`, `UPDATE`, and `DELETE` data on a server. To be more precise, we will be managing a list of dogs on a server. 🐶🐕🐶🐕
+
+
 
 ## Install Nodejs (Optional)
 
