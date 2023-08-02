@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>What does a UX/UI do?</title>
+		<meta name="description" content="What does a UX/UI do?">
+		<link rel="alternate" href="/web-to-know-website/feed/feed.xml" type="application/atom+xml" title="Web to know">
+		<link rel="alternate" href="/web-to-know-website/feed/feed.json" type="application/json" title="Web to know">
+		
+		<style>/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+/* Only include the syntax highlighter CSS on blog posts */
+* { box-sizing: border-box; }
+/* Defaults */
+:root {
+	--font-family: -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+	--color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333;
+
+	--background-color: #fff;
+
+	--text-color: var(--color-gray-90);
+	--text-color-link: #082840;
+	--text-color-link-active: #5f2b48;
+	--text-color-link-visited: #17050F;
+
+	--syntax-tab-size: 2;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-gray-20: #e0e0e0;
+		--color-gray-50: #C0C0C0;
+		--color-gray-90: #dad8d8;
+
+		/* --text-color is assigned to --color-gray-_ above */
+		--text-color-link: #1493fb;
+		--text-color-link-active: #6969f7;
+		--text-color-link-visited: #a6a6f8;
+
+		--background-color: #15202b;
+	}
+}
+
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 70rem;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main {
+	padding: 1rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.links-nextprev {
+	list-style: none;
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+}
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em .5em;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1em;
+}
+.home-link {
+	font-size: 1em; /* 16px /16 */
+	font-weight: 700;
+	margin-right: 2em;
+}
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+}
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1em;
+}
+
+.postlist-authors {
+	display: flex;
+}
+
+.postlist-title {
+	margin:0;
+}
+
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+
+/* Direct Links / Markdown Headers */
+.header-anchor {
+	text-decoration: none;
+	font-style: normal;
+	font-size: 1em;
+	margin-left: .1em;
+}
+a[href].header-anchor,
+a[href].header-anchor:visited {
+	color: transparent;
+}
+a[href].header-anchor:focus,
+a[href].header-anchor:hover {
+	text-decoration: underline;
+}
+a[href].header-anchor:focus,
+:hover > a[href].header-anchor {
+	color: #aaa;
+}
+
+h2 + .header-anchor {
+	font-size: 1.5em;
+}
+
+article > header {
+	display: block;
+	padding: 0 0 16px 0;
+}
+
+.toc a {
+  font-size: 14px;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: #6c757d;
+  content: "/";
+}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/web-to-know-website/" class="home-link">Web to know</a>
+			<nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/web-to-know-website/">Home</a></li>
+					<li class="nav-item"><a href="/web-to-know-website/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/web-to-know-website/about/">About us</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+<article>
+	<header>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+				<a href="/web-to-know-website/blog/">Blog</a>
+				</li>
+				<li class="breadcrumb-item">
+				<a href="/web-to-know-website/blog/jobs-in-it/">Jobs in IT</a>
+				</li>
+				<li class="breadcrumb-item" aria-current="page">
+				What does a UX/UI do?
+				</li>
+			</ol>
+		</nav>
+
+		<h1>What does a UX/UI do?</h1>
+			<picture><source type="image/avif" srcset="/web-to-know-website/img/vGz-NayL_l-3552.avif 3552w"><source type="image/webp" srcset="/web-to-know-website/img/vGz-NayL_l-3552.webp 3552w"><img alt="Dogs" class="test" loading="lazy" decoding="async" src="/web-to-know-website/img/vGz-NayL_l-3552.jpeg" width="3552" height="1984"></picture>
+
+		<ul class="post-metadata">
+			<li><time datetime="2023-01-05">05 January 2023</time></li>
+			<li><a href="/web-to-know-website/tags/jobs-in-it/" class="post-tag">jobs in IT</a></li>
+			
+      		<li>🕒🕒🕒🕒🕒🕒 6 minutes  to read,</li>
+		</ul>
+			<p>
+			Written by
+				<a href="/web-to-know-website/authors/damun">Dana Maria Nicolae</a>
+			</p>
+	</header>
+
+	<nav class="post-nav">
+		<h2>Table of content</h2>
+		<nav class="toc">
+                <ol>
+                    
+                    <li><a href="#what-does-it-mean-to-be-a-ux-ui-designer">What does it mean to be a UX / UI Designer? #</a>
+            		</li>
+
+                    <li><a href="#what-are-the-design-steps">What are the design steps? #</a>
+            		</li>
+
+                    <li><a href="#what-to-do-at-work">What to do at work #</a>
+            		</li>
+
+                    <li><a href="#final-words">Final words #</a>
+            		</li>
+                </ol>
+            </nav>
+	</nav>
+
+	<p>Today we're going to talk about a very interesting new job in the IT industry, that of UX / UI Designer. Watch this video and you will find out what this job entails, which are the stages that a product in the design phase goes through, what skills a designer must have, and what a day's work looks like.</p>
+<h2 id="what-does-it-mean-to-be-a-ux-ui-designer" tabindex="-1">What does it mean to be a UX / UI Designer? <a class="header-anchor" href="#what-does-it-mean-to-be-a-ux-ui-designer">#</a></h2>
+<p>UX is the acronym for User Experience and represents the perception that a person has about the product they interact with, it is the experience that the user has when using the application.
+UI is the abbreviation for User Interface and refers to the entire design of the product, namely everything that users see on their screen: text, buttons, colors, and icons.
+So, a UX / UI Designer is the person who makes sure that users have a friendly interaction with the application. The process begins with the design of the UX  (User Experience) and continues with the drawing of the interface, which is the UI. Both branches are equally important and work together to achieve a  simple, intuitive, and pleasing-to-the-eye application.
+To be more precise, a designer turns THIS into THIS.
+The role of a designer in the project is crucial, as the primary purpose of an application is to meet the needs of its users. No matter how brilliant the idea of the project is, how impeccable the implementation was or how good the marketing was, the application will never be successful if its users have difficulty using it.
+As an example, we all know the Google search engine, but it was not the first one made (Yahoo, Lycos, or AltaVista being just a few examples that existed before it) but it was the only one that made finding the most relevant information for users easy and accessible to anyone.</p>
+<h2 id="what-are-the-design-steps" tabindex="-1">What are the design steps? <a class="header-anchor" href="#what-are-the-design-steps">#</a></h2>
+<ol>
+<li>The first stage is the project definition stage, where the designer conducts a series of interviews with clients, thus finding out information about the project purpose, business needs, deadlines, financial and technical constraints, main competitors, and target audience.</li>
+<li>The second stage, user research, focuses on in-depth knowledge of the target audience using methods such as direct interviews, focus groups, or online questionnaires. The goal is to understand the needs, desires, fears, frustrations, motivations, and behaviors of users to obtain a useful and valuable final product. After that, the designer collects and analyzes the data obtained to define:
+<ul>
+<li>User profiles, called personas in the design world, contain information about the typologies of the target users of the product, including demographics, preferences, habits, positive and negative assessments</li>
+<li>The user's travel map, representing a diagram that visually illustrates the steps a user takes in a real or possible scenario</li>
+</ul>
+</li>
+<li>The third stage, the actual design, includes the creation of information architecture, drawing sketches, and making prototypes of the interface.
+In more detail:
+<ul>
+<li>The information architecture represents the way of organizing and structuring the content of the application so that users can easily navigate through it and find the desired information in a fast and efficient way.</li>
+<li>To build the navigation functionality in the application, it is necessary to create user navigation flows, namely diagrams that visualize the path that the user has when using the application, from the entry point to the last interaction.</li>
+<li>Application screens begin to be defined through low-fidelity prototypes or wireframes, two-dimensional sketches of screens that serve to present the structure, content, and visual hierarchy of a page.</li>
+<li>Subsequently, the designer outlines high-fidelity prototypes, which focus on visual design (final graphics, icons, colors, fonts, animations) and the user's interaction with the interface, being a faithful simulation of the final product.</li>
+<li>To ensure that the product is implemented according to prototypes, the designer has the responsibility to document the design specifications for developers, and on large projects to collaborate with developers and create a design system.</li>
+</ul>
+</li>
+<li>The last step for a UX / UI designer is evaluation. This consists of testing prototypes with real users to obtain feedback and ideas to improve the solutions already outlined in the previous stages. Based on these, the designer redraws certain previous steps of the design process, to ensure that the implemented solution will meet the expectations and needs of both end users and customers and business purposes.</li>
+<li>The designer also participates in the process of implementing the application, supervising and adjusting the design where appropriate, as well as the design of new features and screens that will be included in later versions.
+What skills do you need to have?
+The skills a UX / UI Designer needs include:
+<ul>
+<li>UX research skills, from cognitive psychology to computer science, all can be used in the research process</li>
+<li>Technical and design skills - wireframing and prototyping - with the help of various software designed for this purpose: Sketch, Adobe XD, Figma, Adobe Photoshop, InVision, Adobe Illustrator, or Balsamiq</li>
+<li>Empathy - is the ability to put yourself in the shoes of different types of users and to understand their needs, problems, and desires to be able to find a solution as suitable as possible for them</li>
+<li>Collaboration and communication, so that the final product meets both the needs of users and business purposes</li>
+<li>Analytical skills to interpret and monitor the relationship of users with the application. One tool that helps in this regard is Google Analytics</li>
+<li>Attention to detail and creative thinking, to make a product that users can interact with in the most pleasant way</li>
+<li>Organizational and mediation skills are needed in brainstorming meetings, focus groups, workshops, or interviews</li>
+</ul>
+</li>
+</ol>
+<h2 id="what-to-do-at-work" tabindex="-1">What to do at work <a class="header-anchor" href="#what-to-do-at-work">#</a></h2>
+<p>A UX / UI designer can have many types of activities during the day. Can work on creating wireframes, prototypes, or visual designs. He can participate in interviews with users or focus groups to identify issues or preferences of the target audience, which he will later use to make the best version of the application. Or it can have meetings with other team members, developers, business analysts, and project managers, to work together to adjust the design where appropriate, but also to brainstorm on new features and screens that will be included in future versions. Every day can be a unique combination of research, communication, teamwork, and creation, which makes this job interesting and challenging.</p>
+<h2 id="final-words" tabindex="-1">Final words <a class="header-anchor" href="#final-words">#</a></h2>
+<p>Finally, I would like to emphasize once again the importance of a UX / UI Designer for the product. The simplicity and ease of use help customers to enjoy using the application we develop, in fact, for them. In hope that you have an idea about this job and that you want to follow us further, like this video and subscribe to our channel. Did you know that there are jobs in the IT industry that do not involve programming, such as this one?
+We look forward to hearing from you in the comments section. My name is Dana and thank you for following me to the end!</p>
+
+
+    <footer>
+		<hr>
+		
+		
+		<ul class="links-nextprev"><li>Previous: <a href="/web-to-know-website/blog/jobs-in-it/">Jobs in IT</a></li><li>Next: <a href="/web-to-know-website/blog/tutorials/crud-angular/">How to CRUD a REST API with Angular</a></li>
+		</ul>
+ 	</footer>
+</article>
+
+		</main>
+
+		<footer></footer>
+
+		<!-- Current page: /web-to-know-website/blog/jobs-in-it/ui-ux-designer/ -->
+	</body>
+</html>

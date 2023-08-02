@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>How to CRUD a REST API with Angular</title>
+		<meta name="description" content="Learn CRUD operation with a simple tutorial">
+		<link rel="alternate" href="/web-to-know-website/feed/feed.xml" type="application/atom+xml" title="Web to know">
+		<link rel="alternate" href="/web-to-know-website/feed/feed.json" type="application/json" title="Web to know">
+		
+		<style>/**
+ * okaidia theme for JavaScript, CSS and HTML
+ * Loosely based on Monokai textmate theme by http://www.monokai.nl/
+ * @author ocodia
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #f8f8f2;
+	background: none;
+	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 1em;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	border-radius: 0.3em;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #272822;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #8292a2;
+}
+
+.token.punctuation {
+	color: #f8f8f2;
+}
+
+.token.namespace {
+	opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted {
+	color: #f92672;
+}
+
+.token.boolean,
+.token.number {
+	color: #ae81ff;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+	color: #a6e22e;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #f8f8f2;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name {
+	color: #e6db74;
+}
+
+.token.keyword {
+	color: #66d9ef;
+}
+
+.token.regex,
+.token.important {
+	color: #fd971f;
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+/*
+ * New diff- syntax
+ */
+
+pre[class*="language-diff-"] {
+	--eleventy-code-padding: 1.25em;
+	padding-left: var(--eleventy-code-padding);
+	padding-right: var(--eleventy-code-padding);
+}
+.token.deleted {
+	background-color: hsl(0, 51%, 37%);
+	color: inherit;
+}
+.token.inserted {
+	background-color: hsl(126, 31%, 39%);
+	color: inherit;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.token.prefix.inserted,
+.token.prefix.deleted {
+	width: var(--eleventy-code-padding);
+	background-color: rgba(0,0,0,.2);
+}
+
+/* Optional: full-width background color */
+.token.inserted:not(.prefix),
+.token.deleted:not(.prefix) {
+	display: block;
+	margin-left: calc(-1 * var(--eleventy-code-padding));
+	margin-right: calc(-1 * var(--eleventy-code-padding));
+	text-decoration: none; /* override del, ins, mark defaults */
+	color: inherit; /* override del, ins, mark defaults */
+}
+/* Only include the syntax highlighter CSS on blog posts */
+* { box-sizing: border-box; }
+/* Defaults */
+:root {
+	--font-family: -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+	--color-gray-20: #e0e0e0;
+	--color-gray-50: #C0C0C0;
+	--color-gray-90: #333;
+
+	--background-color: #fff;
+
+	--text-color: var(--color-gray-90);
+	--text-color-link: #082840;
+	--text-color-link-active: #5f2b48;
+	--text-color-link-visited: #17050F;
+
+	--syntax-tab-size: 2;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-gray-20: #e0e0e0;
+		--color-gray-50: #C0C0C0;
+		--color-gray-90: #dad8d8;
+
+		/* --text-color is assigned to --color-gray-_ above */
+		--text-color-link: #1493fb;
+		--text-color-link-active: #6969f7;
+		--text-color-link-visited: #a6a6f8;
+
+		--background-color: #15202b;
+	}
+}
+
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 70rem;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:active {
+	color: var(--text-color-link-active);
+}
+
+main {
+	padding: 1rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+header:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.links-nextprev {
+	list-style: none;
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+pre,
+code {
+	font-family: var(--font-family-monospace);
+}
+pre:not([class*="language-"]) {
+	margin: .5em 0;
+	line-height: 1.375; /* 22px /16 */
+	-moz-tab-size: var(--syntax-tab-size);
+	-o-tab-size: var(--syntax-tab-size);
+	tab-size: var(--syntax-tab-size);
+	-webkit-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	direction: ltr;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+}
+code {
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em .5em;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1em;
+}
+.home-link {
+	font-size: 1em; /* 16px /16 */
+	font-weight: 700;
+	margin-right: 2em;
+}
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+}
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+}
+.nav a[href][aria-current="page"] {
+	text-decoration: underline;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+	padding-left: 1.5rem;
+}
+.postlist-item {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 1em;
+}
+
+.postlist-authors {
+	display: flex;
+}
+
+.postlist-title {
+	margin:0;
+}
+
+.postlist-item:before {
+	display: inline-block;
+	pointer-events: none;
+	line-height: 100%;
+	text-align: right;
+	margin-left: -1.5rem;
+}
+.postlist-date,
+.postlist-item:before {
+	font-size: 0.8125em; /* 13px /16 */
+	color: var(--color-gray-90);
+}
+.postlist-date {
+	word-spacing: -0.5px;
+}
+.postlist-link {
+	font-size: 1.1875em; /* 19px /16 */
+	font-weight: 700;
+	flex-basis: calc(100% - 1.5rem);
+	padding-left: .25em;
+	padding-right: .5em;
+	text-underline-position: from-font;
+	text-underline-offset: 0;
+	text-decoration-thickness: 1px;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	text-transform: capitalize;
+	font-style: italic;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	display: inline-flex;
+	flex-wrap: wrap;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+
+/* Direct Links / Markdown Headers */
+.header-anchor {
+	text-decoration: none;
+	font-style: normal;
+	font-size: 1em;
+	margin-left: .1em;
+}
+a[href].header-anchor,
+a[href].header-anchor:visited {
+	color: transparent;
+}
+a[href].header-anchor:focus,
+a[href].header-anchor:hover {
+	text-decoration: underline;
+}
+a[href].header-anchor:focus,
+:hover > a[href].header-anchor {
+	color: #aaa;
+}
+
+h2 + .header-anchor {
+	font-size: 1.5em;
+}
+
+article > header {
+	display: block;
+	padding: 0 0 16px 0;
+}
+
+.toc a {
+  font-size: 14px;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin-bottom: 1rem;
+  list-style: none;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  color: #6c757d;
+  content: "/";
+}</style>
+	</head>
+	<body>
+		<a href="#skip" class="visually-hidden">Skip to main content</a>
+
+		<header>
+			<a href="/web-to-know-website/" class="home-link">Web to know</a>
+			<nav>
+				<h2 class="visually-hidden">Top level navigation menu</h2>
+				<ul class="nav">
+					<li class="nav-item"><a href="/web-to-know-website/">Home</a></li>
+					<li class="nav-item"><a href="/web-to-know-website/blog/">Blog</a></li>
+					<li class="nav-item"><a href="/web-to-know-website/about/">About us</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main id="skip">
+			
+<article>
+	<header>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item" aria-current="page">
+				How to CRUD a REST API with Angular
+				</li>
+			</ol>
+		</nav>
+
+		<h1>How to CRUD a REST API with Angular</h1>
+			<picture><source type="image/avif" srcset="/web-to-know-website/img/3kfqgOao7M-3552.avif 3552w"><source type="image/webp" srcset="/web-to-know-website/img/3kfqgOao7M-3552.webp 3552w"><img alt="Dogs" class="test" loading="lazy" decoding="async" src="/web-to-know-website/img/3kfqgOao7M-3552.jpeg" width="3552" height="1984"></picture>
+
+		<ul class="post-metadata">
+			<li><time datetime="2023-01-05">05 January 2023</time></li>
+			<li><a href="/web-to-know-website/tags/tutorials/" class="post-tag">Tutorials</a>, </li>
+			<li><a href="/web-to-know-website/tags/angular/" class="post-tag">Angular</a></li>
+			
+      		<li>🕒🕒🕒🕒🕒🕒🕒🕒🕒🕒 10 minutes  to read,</li>
+		</ul>
+			<p>
+			Written by
+				<a href="/web-to-know-website/authors/bogminic">Bogdan Mihai Nicolae</a>
+			</p>
+	</header>
+
+	<nav class="post-nav">
+		<h2>Table of content</h2>
+		<nav class="toc">
+                <ol>
+                    
+                    <li><a href="#install-nodejs-optional">Install Nodejs (Optional) #</a>
+            		</li>
+
+                    <li><a href="#start-and-configure-mock-server">Start and configure mock server #</a>
+            		</li>
+
+                    <li><a href="#angular-create-new-project">Angular create new project #</a>
+            		</li>
+
+                    <li><a href="#add-material-ui">Add Material-UI #</a>
+            		</li>
+
+                    <li><a href="#removing-unnecessary-code">Removing unnecessary code #</a>
+            		</li>
+
+                    <li><a href="#get-the-dogs-list-from-server">Get the dogs list from server. #</a>
+            		</li>
+
+                    <li><a href="#displaying-the-list-of-dogs">Displaying the list of dogs #</a>
+            		</li>
+
+                    <li><a href="#styling-the-list-of-dogs">Styling the list of dogs #</a>
+            		</li>
+
+                    <li><a href="#deleting-an-element-from-the-list-of-dogs">Deleting an element from the list of dogs #</a>
+            		</li>
+
+                    <li><a href="#adding-and-editing-an-element-from-the-list-of-dogs">Adding and editing an element from the list of dogs #</a>
+            		</li>
+                </ol>
+            </nav>
+	</nav>
+
+	<p>This tutorial will provide an introduction to working with REST APIs and Angular, and will cover the key concepts and techniques needed to build web applications that can <code>CREATE</code>, <code>READ</code>, <code>UPDATE</code>, and <code>DELETE</code> data on a server. To be more precise, we will be managing a list of dogs on a server. 🐶🐕🐶🐕</p>
+<h2 id="install-nodejs-optional" tabindex="-1">Install Nodejs (Optional) <a class="header-anchor" href="#install-nodejs-optional">#</a></h2>
+<blockquote>
+<p>Do this if you don't have Nodejs installed on your local machine.</p>
+</blockquote>
+<p>To install Node.js on Windows, you can download the installer from the <a href="https://nodejs.org/en/download/">Node.js website</a> and follow the prompts to install the latest version of Node.js on your system.</p>
+<p>To install Node.js on Linux, you can use a package manager such as apt-get or yum. For example, to install Node.js on Ubuntu using apt-get, you can run the following commands:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> nodejs</code></pre>
+<p>To install Node.js on MacOS, you can use the Homebrew package manager. First, you will need to install Homebrew by running the following command:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">/usr/bin/ruby <span class="token parameter variable">-e</span> <span class="token string">"<span class="token variable"><span class="token variable">$(</span><span class="token function">curl</span> <span class="token parameter variable">-fsSL</span> https://raw.githubusercontent.com/Homebrew/install/master/install<span class="token variable">)</span></span>"</span></code></pre>
+<p>Once Homebrew is installed, you can use it to install Node.js by running the following command:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">brew <span class="token function">install</span> <span class="token function">node</span></code></pre>
+<p>Once Node.js is installed, you can verify the installation by running the node -v command, which should print the installed version of Node.js. You can also use the npm command to manage packages and dependencies for your Node.js projects.</p>
+<h2 id="start-and-configure-mock-server" tabindex="-1">Start and configure mock server <a class="header-anchor" href="#start-and-configure-mock-server">#</a></h2>
+<p>JSON-server is a Node.js based tool for quickly creating a mock server that can be used for testing and development purposes. It is designed to be easy to use and set up, and provides a simple way to create a fake REST API by defining the data in a db.json file.</p>
+<p>To start a mock server using JSON-server, you will need to install the JSON-server package from npm. You can do this by running the following command:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> json-server</code></pre>
+<p>Once you have installed the JSON-server package, you can create a new file called db.json in the directory where you want to run your mock server. This file will be used to store the data for your mock server.</p>
+<p>Next, you can populate the db.json file with some sample data. This can be any JSON data that you want to use for your mock server. For example:</p>
+<pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"dogs"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"AFFENPINSCHER"</span><span class="token punctuation">,</span>
+      <span class="token property">"img"</span><span class="token operator">:</span> <span class="token string">"https://images.dog.ceo/breeds/affenpinscher/n02110627_8099.jpg"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"AKITA"</span><span class="token punctuation">,</span>
+      <span class="token property">"img"</span><span class="token operator">:</span> <span class="token string">"https://images.dog.ceo//breeds//akita//An_Akita_Inu_resting.jpg"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"CHIHUAHUA"</span><span class="token punctuation">,</span>
+      <span class="token property">"img"</span><span class="token operator">:</span> <span class="token string">"https://images.dog.ceo/breeds/chihuahua/n02085620_7613.jpg"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"LHASA"</span><span class="token punctuation">,</span>
+      <span class="token property">"img"</span><span class="token operator">:</span> <span class="token string">"https://images.dog.ceo/breeds/lhasa/n02098413_7358.jpg"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"HOUND"</span><span class="token punctuation">,</span>
+      <span class="token property">"img"</span><span class="token operator">:</span> <span class="token string">"https://images.dog.ceo/breeds/hound-afghan/n02088094_2626.jpg"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Once you have your db.json file set up, you can start the mock server by running the following command:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">json-server <span class="token parameter variable">--watch</span> db.json <span class="token parameter variable">-p</span> <span class="token number">4000</span></code></pre>
+<p>This will start the mock server on port 4000. You can access the server by visiting http://localhost:4000 in your web browser. The server will automatically reload when you make changes to the db.json file, so you can easily update the data on your mock server as needed.</p>
+<p>Visiting the link <a href="http://localhost:4000/dogs/1">http://localhost:4000/dogs/1</a>, you should see:</p>
+<pre class="language-json" tabindex="0"><code class="language-json"><span class="token punctuation">{</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"json-server"</span><span class="token punctuation">,</span> <span class="token property">"author"</span><span class="token operator">:</span> <span class="token string">"typicode"</span> <span class="token punctuation">}</span></code></pre>
+<h2 id="angular-create-new-project" tabindex="-1">Angular create new project <a class="header-anchor" href="#angular-create-new-project">#</a></h2>
+<p>To create a new Angular project, you will need to have the Angular CLI installed on your system. You can install the <a href="https://angular.io/cli">Angular CLI</a> by running the following command:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> <span class="token parameter variable">-g</span> @angular/cli</code></pre>
+<p>Once the Angular CLI is installed, you can create a new Angular project by running the following command:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">ng new my-dogs</code></pre>
+<pre class="language-bash" tabindex="0"><code class="language-bash">? Do you want to enforce stricter <span class="token builtin class-name">type</span> checking and stricter bundle budgets <span class="token keyword">in</span> the workspace?
+  This setting helps improve maintainability and catch bugs ahead of time.
+  For <span class="token function">more</span> information, see https://angular.io/strict No
+? Would you like to <span class="token function">add</span> Angular routing? No
+? Which stylesheet <span class="token function">format</span> would you like to use? CSS</code></pre>
+<p>This will create a new directory called <code>my-dogs</code> containing the scaffolding for a new Angular project. You can then navigate to the <code>my-dogs</code> directory and run the <code>ng serve</code> command to start the development server and begin working on your project.</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash"><span class="token builtin class-name">cd</span> my-dogs
+ng serve</code></pre>
+<p>Visiting the link <a href="http://localhost:4000">http://localhost:4200</a>, you should see the new Angular application.</p>
+<h2 id="add-material-ui" tabindex="-1">Add Material-UI <a class="header-anchor" href="#add-material-ui">#</a></h2>
+<p>To add Material to an Angular project using schematics, you can use the <code>ng add</code> command. This command will add the Material package to your project and also update your project with the required configuration for Material:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">ng <span class="token function">add</span> @angular/material</code></pre>
+<p>This command will install the latest version of Material and all of its dependencies, and will also update your Angular project with the required configuration for Material.</p>
+<p>After running this command, you should be able to use Material components in your Angular project by importing them from the @angular/material module.</p>
+<p>For more detailed instructions on how to add Angular Material to your project, you can refer to the <a href="https://material.angular.io/guide/getting-started#install-angular-material">Angular Material documentation</a>.</p>
+<h2 id="removing-unnecessary-code" tabindex="-1">Removing unnecessary code <a class="header-anchor" href="#removing-unnecessary-code">#</a></h2>
+<p>Let's remove all unnecessary HTML from the newly created <code>app.component.html</code> component.</p>
+<h2 id="get-the-dogs-list-from-server" tabindex="-1">Get the dogs list from server. <a class="header-anchor" href="#get-the-dogs-list-from-server">#</a></h2>
+<p>To get a list of dogs from a server in Angular using a service, you can create a service that makes an HTTP GET request to the server to retrieve the list of dogs. You can then inject this service into any component that needs to access the list of dogs, and use the service to make the HTTP request.</p>
+<p>First thing you need to do is generate the dog's by creating new class:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">ng generate interface dog</code></pre>
+<p>unde o sa punem modelul listei de catei:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token punctuation">{</span>
+    id<span class="token operator">?</span><span class="token operator">:</span> number<span class="token punctuation">;</span>
+    <span class="token literal-property property">name</span><span class="token operator">:</span> string <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token literal-property property">img</span><span class="token operator">:</span> string <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre>
+<p>To create a service in Angular, you would first need to generate a new service using the Angular CLI. You can do this by running the following command:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">ng generate <span class="token function">service</span> <span class="token variable"><span class="token variable">`</span>dogs<span class="token variable">`</span></span></code></pre>
+<p>Here's an example of how you might create a CRUD service:</p>
+<pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Injectable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@angular/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> HttpClient <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@angular/common/http'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Observable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'rxjs/internal/Observable'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Dog <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./dog'</span><span class="token punctuation">;</span>
+
+@<span class="token function">Injectable</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">providedIn</span><span class="token operator">:</span> <span class="token string">'root'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">DogsService</span> <span class="token punctuation">{</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> <span class="token literal-property property">http</span><span class="token operator">:</span> HttpClient</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">getDogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>http<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://localhost:4000/dogs'</span><span class="token punctuation">)</span> <span class="token keyword">as</span> Observable<span class="token operator">&lt;</span>Dog<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">addDog</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">postObject</span><span class="token operator">:</span> Dog</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>http<span class="token punctuation">.</span><span class="token function">post</span><span class="token punctuation">(</span><span class="token string">'http://localhost:4000/dogs'</span><span class="token punctuation">,</span> postObject<span class="token punctuation">)</span> <span class="token keyword">as</span> Observable<span class="token operator">&lt;</span>Dog<span class="token operator">></span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">updateDog</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">postObject</span><span class="token operator">:</span> Dog</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>http<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">http://localhost:4000/dogs/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>postObject<span class="token punctuation">.</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> postObject<span class="token punctuation">)</span> <span class="token keyword">as</span> Observable<span class="token operator">&lt;</span>Dog<span class="token operator">></span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">deleteDog</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">id</span><span class="token operator">:</span> number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>http<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">http://localhost:4000/dogs/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>id<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token keyword">as</span> Observable<span class="token operator">&lt;</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token operator">></span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>In the above example, we create a service called <code>DogsService</code> using Angular CLI.
+We then import the <code>HttpClient</code> module and inject it into the service.
+We can then use the <code>HttpClient</code> to make HTTP requests to a backend API.
+We then  added methods to handle the CRUD operations (i.e. addDog(), getDogs() updateDog(), deleteDog()) as needed.</p>
+<p>In our component, we need a variable to store this list:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token operator">...</span>
+  <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AppComponent</span> <span class="token keyword">implements</span> <span class="token class-name">OnInit</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">dogs</span><span class="token operator">:</span> Dog<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token operator">...</span></code></pre>
+<p>We fetch the list of dogs using a <code>GET</code> request:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token function">getDogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>dogsService<span class="token punctuation">.</span><span class="token function">getDogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>dogs <span class="token operator">=</span> response<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span></code></pre>
+<p>We call the previously created function when the component is initialized:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token function">componentDidMount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span></code></pre>
+<h2 id="displaying-the-list-of-dogs" tabindex="-1">Displaying the list of dogs <a class="header-anchor" href="#displaying-the-list-of-dogs">#</a></h2>
+<p>We use the <a href="https://material.angular.io/components/table/overview">Material-UI</a> table as an example to display the list of dogs:</p>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">mat-raised-button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>addButton<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Add<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">mat-table</span> <span class="token attr-name">[dataSource]</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dogs<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mat-elevation-z8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ng-container</span> <span class="token attr-name">matColumnDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span> <span class="token attr-name">mat-header-cell</span> <span class="token attr-name">*matHeaderCellDef</span><span class="token punctuation">></span></span> Name <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">mat-cell</span> <span class="token attr-name">*matCellDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>let element<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ng-container</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ng-container</span> <span class="token attr-name">matColumnDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>img<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span> <span class="token attr-name">mat-header-cell</span> <span class="token attr-name">*matHeaderCellDef</span><span class="token punctuation">></span></span> Image <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">mat-cell</span> <span class="token attr-name">*matCellDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>let element<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>img<span class="token punctuation">"</span></span> <span class="token attr-name">[attr.src]</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>element.img<span class="token punctuation">"</span></span> <span class="token attr-name">[attr.alt]</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>element.name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ng-container</span><span class="token punctuation">></span></span>
+
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ng-container</span> <span class="token attr-name">matColumnDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>actions<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span> <span class="token attr-name">mat-header-cell</span> <span class="token attr-name">*matHeaderCellDef</span><span class="token punctuation">></span></span> Action <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span> <span class="token attr-name">mat-cell</span> <span class="token attr-name">*matCellDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>let element<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>editButton<span class="token punctuation">"</span></span> <span class="token attr-name">mat-raised-button</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>primary<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Editare<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">mat-raised-button</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>primary<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Stergere<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ng-container</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">mat-header-row</span> <span class="token attr-name">*matHeaderRowDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>displayedColumns<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span> <span class="token attr-name">mat-row</span> <span class="token attr-name">*matRowDef</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>let row; columns: displayedColumns;<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span></code></pre>
+<p>We create a new variable in the component to store the column names:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token operator">...</span>
+  <span class="token literal-property property">dogs</span><span class="token operator">:</span> Dog<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token literal-property property">displayedColumns</span><span class="token operator">:</span> string<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'img'</span><span class="token punctuation">,</span> <span class="token string">'actions'</span><span class="token punctuation">]</span>
+  <span class="token operator">...</span></code></pre>
+<p>For each dog, we display the name, image, and action buttons: <code>Edit</code> and <code>Delete</code>.</p>
+<h2 id="styling-the-list-of-dogs" tabindex="-1">Styling the list of dogs <a class="header-anchor" href="#styling-the-list-of-dogs">#</a></h2>
+<p>To improve the design, we add the following styles in <code>app.component.css</code>:</p>
+<pre class="language-css" tabindex="0"><code class="language-css"><span class="token selector">.img</span> <span class="token punctuation">{</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 150px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">table</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.addButton</span> <span class="token punctuation">{</span>
+  <span class="token property">margin</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.editButton</span> <span class="token punctuation">{</span>
+  <span class="token property">margin-right</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="deleting-an-element-from-the-list-of-dogs" tabindex="-1">Deleting an element from the list of dogs <a class="header-anchor" href="#deleting-an-element-from-the-list-of-dogs">#</a></h2>
+<p>We delete an element from the list of dogs using a <code>DELETE</code> request:</p>
+<p>Add the delete method to <code>app.component.ts</code>:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token function">deleteDog</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">id</span><span class="token operator">:</span> number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>dogsService<span class="token punctuation">.</span><span class="token function">deleteDog</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre>
+<p>and in <code>app.component.html</code>, add the button event:</p>
+<pre class="language-html" tabindex="0"><code class="language-html">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">mat-raised-button</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>primary<span class="token punctuation">"</span></span> <span class="token attr-name">(click)</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>deleteDog(element.id)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Stergere<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span></code></pre>
+<h2 id="adding-and-editing-an-element-from-the-list-of-dogs" tabindex="-1">Adding and editing an element from the list of dogs <a class="header-anchor" href="#adding-and-editing-an-element-from-the-list-of-dogs">#</a></h2>
+<p>We insert the Add button above the table:</p>
+<pre class="language-html" tabindex="0"><code class="language-html">  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">mat-raised-button</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>addButton<span class="token punctuation">"</span></span> <span class="token attr-name">(click)</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>addDog()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Adaugare<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">mat-table</span> <span class="token attr-name">[dataSource]</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>dogs<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>mat-elevation-z8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+...</code></pre>
+<p>The method that adds a new element will open a modal with an empty form:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token function">addDog</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> dialogRef <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dialog<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>FormComponent<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token string">'650px'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">data</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span> <span class="token literal-property property">img</span><span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    dialogRef<span class="token punctuation">.</span><span class="token function">afterClosed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token parameter">result</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre>
+<p>The method that edits an element will open a modal that contains details about the dog:</p>
+<pre class="language-js" tabindex="0"><code class="language-js">  <span class="token function">editDog</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">dog</span><span class="token operator">:</span> Dog</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> dialogRef <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>dialog<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>FormComponent<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">width</span><span class="token operator">:</span> <span class="token string">'650px'</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">data</span><span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span>dog <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    dialogRef<span class="token punctuation">.</span><span class="token function">afterClosed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token parameter">result</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getDogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span></code></pre>
+<p>We create a new form component in the <code>src/app</code> directory that will contain the inputs and save logic:</p>
+<pre class="language-bash" tabindex="0"><code class="language-bash">ng generate component form</code></pre>
+<pre class="language-html" tabindex="0"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mat-dialog-content</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mat-form-field</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">matInput</span> <span class="token attr-name">[(ngModel)]</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>data.name<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Name<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mat-form-field</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>mat-form-field</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">matInput</span> <span class="token attr-name">[(ngModel)]</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>data.img<span class="token punctuation">"</span></span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>Image url<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>mat-form-field</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">mat-dialog-actions</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">mat-button</span> <span class="token attr-name">(click)</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>closeModal()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Anulare<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">mat-button</span> <span class="token attr-name">cdkFocusInitial</span> <span class="token attr-name">(click)</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>saveDog()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Save<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span></code></pre>
+<p>We save a dog using the saveDog method and <code>POST</code> and <code>PUT</code> requests:</p>
+<pre class="language-js" tabindex="0"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component<span class="token punctuation">,</span> Inject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@angular/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> MatDialogRef<span class="token punctuation">,</span> <span class="token constant">MAT_DIALOG_DATA</span><span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@angular/material/dialog'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Dog <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../dog'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> DogsService <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../dogs.service'</span><span class="token punctuation">;</span>
+
+@<span class="token function">Component</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">selector</span><span class="token operator">:</span> <span class="token string">'app-form'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">templateUrl</span><span class="token operator">:</span> <span class="token string">'./form.component.html'</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">styleUrls</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'./form.component.css'</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FormComponent</span> <span class="token punctuation">{</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span>
+    <span class="token parameter"><span class="token keyword">public</span> <span class="token literal-property property">dialogRef</span><span class="token operator">:</span> MatDialogRef<span class="token operator">&lt;</span>FormComponent<span class="token operator">></span><span class="token punctuation">,</span>
+    <span class="token keyword">private</span> <span class="token literal-property property">dogsService</span><span class="token operator">:</span> DogsService<span class="token punctuation">,</span>
+    @<span class="token function">Inject</span><span class="token punctuation">(</span><span class="token constant">MAT_DIALOG_DATA</span><span class="token punctuation">)</span> <span class="token keyword">public</span> <span class="token literal-property property">data</span><span class="token operator">:</span> Dog</span>
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+  <span class="token function">ngOnInit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">closeModal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>dialogRef<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">saveDog</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">.</span>id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>dogsService<span class="token punctuation">.</span><span class="token function">updateDog</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>dialogRef<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>dogsService<span class="token punctuation">.</span><span class="token function">addDog</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>dialogRef<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Finally, we style the modal:</p>
+<pre class="language-css" tabindex="0"><code class="language-css"><span class="token selector">.container</span> <span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+  <span class="token property">flex-direction</span><span class="token punctuation">:</span> column<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.container > *</span> <span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+
+
+    <footer>
+		<hr>
+		
+		
+		<p>
+			This page is also available in:
+			<a href="/web-to-know-website/ro/blog/crud-folosind-rest-api-cu-angular/" lang="ro" hreflang="ro">Română</a></p>
+		
+		<ul class="links-nextprev"><li>Previous: <a href="/web-to-know-website/blog/jobs-in-it/ui-ux-designer/">What does a UX/UI do?</a></li>
+		</ul>
+ 	</footer>
+</article>
+
+		</main>
+
+		<footer></footer>
+
+		<!-- Current page: /web-to-know-website/blog/tutorials/crud-angular/ -->
+	</body>
+</html>
