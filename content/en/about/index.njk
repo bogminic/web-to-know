@@ -20,6 +20,7 @@ eleventyNavigation:
     <img src="{{ author.photo }}" alt="{{ author.name }}" width="100" height="100">
     <h3>{{ author.name }}</h3>
     <p>{{ author.bio }}</p>
+    <a href="/authors/{{author.key}}">Read more about {{ author.firstName }}</a>
   </article>
 {% endfor %}
 
