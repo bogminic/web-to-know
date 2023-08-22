@@ -4,6 +4,7 @@ description: What does a UX/UI do?
 slugOverride: What does a UI-UX Designer do
 date: 2023-01-05
 author: damun
+picture: "ui-ux-designer.jpg"
 eleventyNavigation:
   key: ux.ui.designer
   parent: nav.jobsInIt

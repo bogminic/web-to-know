@@ -1,6 +1,7 @@
 ---
 title: Jobs in IT
 description: Jobs we can find in the Information Technology industry (IT)
+picture: "future-server-room.jpg"
 eleventyNavigation:
   key: nav.jobsInIt
   parent: nav.blog
