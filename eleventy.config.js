@@ -15,6 +15,7 @@ const languageStrings = require("./i18n.js");
 const pluginDrafts = require("./eleventy.config.drafts.js");
 const pluginImages = require("./eleventy.config.images.js");
 
+/** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 module.exports = function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
 	// For example, `./public/css/` ends up in `_site/css/`
@@ -129,6 +130,10 @@ module.exports = function(eleventyConfig) {
 			slugify: eleventyConfig.getFilter("slugify")
 		});
 	});
+
+	eleventyConfig.addShortcode("currentBuildDate", () => {
+		return (new Date()).toISOString();
+	})
 
 	// i18n filter using Rosetta
 	const rosettaLib = rosetta(languageStrings);
