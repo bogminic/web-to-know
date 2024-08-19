@@ -1,18 +1,36 @@
 /* Message Box */
-.message-box {
-	--color-message-box: #ffc;
-
-	display: block;
-	background-color: var(--color-message-box);
+.box {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	color: var(--color-gray-90);
-	padding: 1em 0.625em; /* 16px 10px /16 */
-}
-.message-box ol {
-	margin-top: 0;
+	padding: 4rem 0;
 }
 
-@media (prefers-color-scheme: dark) {
-	.message-box {
-		--color-message-box: #082840;
+.box__image {
+	width: 50%;
+}
+
+
+/* Small screens (smaller than 640px) */
+@media (max-width: 639px) {
+	.box__title {
+		font-size: 2rem;
+		line-height: 2.2rem;
 	}
 }
+
+/* Small and Medium screens (up 1008px) */
+@media (max-width: 1008px) {
+	.box {
+		flex-direction: column;
+	}
+
+	.box__image {
+		width: 100%;
+	}
+
+}
+
+
+@media (prefers-color-scheme: dark) {}

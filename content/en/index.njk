@@ -6,16 +6,16 @@ eleventyNavigation:
 numberOfLatestPostsToShow: 3
 ---
 
-<!-- Delete this message, it will also remove the component CSS from the bundle -->
 {%- css %}{% include "public/css/message-box.css" %}{% endcss %}
-<div class="message-box">
-	Explore web technologies, IOT, security, and IT jobs with our informative blog featuring in-depth tutorials and articles. Stay ahead of the curve!
-</div>
-<!-- Stop deleting -->
+<section class="box">
+	<h1 class="box__title">Explore, Learn, Connect: <br/> Welcome to <mark>Webtoknow</mark>!</h1>
+	<img class="box__image" src="/img/undraw/code-thinking.svg" alt="Thinking about code" />
+</section>
+
 
 {% set postsCount = collections.posts | getAllPostNotIgnored | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1>
+<h2>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h2>
 
 {% set postslist = collections.posts | getAllPostNotIgnored | head(-1 * numberOfLatestPostsToShow) %}
 {% set postslistCounter = postsCount %}
