@@ -71,31 +71,6 @@ body {
 	/* 34px /16 */
 }
 
-body::before {
-	content: "";
-	position: absolute;
-	top: 0;
-	right: 0;
-	left: 0;
-	height: 500px;
-	background: var(--color-blue-10);
-	z-index: -1;
-}
-
-body::after {
-	content: '';
-	display: block;
-	position: absolute;
-	border-bottom-left-radius: 50% 100%;
-	border-bottom-right-radius: 50% 100%;
-	top: 70px;
-	right: -50%;
-	width: 200%;
-	height: 500px;
-	background: var(--color-blue-10);
-	z-index: -1;
-}
-
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
 .visually-hidden {
 	clip: rect(0 0 0 0);
