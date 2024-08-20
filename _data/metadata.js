@@ -1,5 +1,5 @@
 module.exports = {
-	"title": "Web to know",
+	"title": "Webtoknow",
 	"url": "https://webtoknow.com/",
 	"language": "en",
 	"description": "Explore web technologies, IOT, security, and IT jobs with our informative blog featuring in-depth tutorials and articles.",

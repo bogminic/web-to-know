@@ -1,0 +1,152 @@
+
+/* Header */
+.header {
+	display: flex;
+	gap: 1rem .5rem;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 1.4375rem;
+	margin-top: 1.5rem;
+	border-radius: 1.5rem;
+	background: var(--background-color);
+	position: sticky;
+	top: 1.5rem;
+	box-shadow: 0px 0px 22px 0px #083EB41C;
+}
+
+@media (min-width: 1366px) {
+	.header {
+		margin-right: -123px;
+		margin-left: -123px;
+	}
+
+}
+
+.home-link {
+	font-size: 1.875rem;
+	/* 30px /16 */
+	font-weight: 800;
+	line-height: 1.875rem;
+	margin-right: 2em;
+	color: var(--color-blue-90);
+}
+
+.home-link[href]:visited {
+	color: var(--color-blue-90);
+}
+
+.home-link[href]:hover {
+	text-decoration: none;
+	color: var(--color-blue-50);
+}
+
+.home-link:link:not(:hover) {
+	text-decoration: none;
+}
+
+/* Hamburger Menu */
+.hamburger {
+	display: none; /* Hide by default */
+	flex-direction: column;
+	gap: 5px;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
+
+.hamburger-bar {
+	display:block;
+    font-size: 2rem;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.nav-item {
+	display: inline-block;
+	margin-right: 1em;
+	font-weight: 700;
+}
+
+
+.nav-item a[href]:not(:hover) {
+	text-decoration: none;
+	color: var(--color-blue-90);
+}
+
+.nav-item a[href]:hover {
+	text-decoration: none;
+	color: var(--color-blue-50);
+}
+
+.nav a[href][aria-current="page"] {
+	border: 3px solid var(--color-blue-50);
+	padding: 0.5rem 1rem;
+	border-radius: 1.75rem;
+}
+
+/* Mobile Styles */
+@media (max-width: 767px) {
+	.header {
+		margin-right: 0;
+		margin-left: 0;
+		padding: 0.5rem 1rem;
+		flex-direction: column;
+		text-align: center;
+		margin-top: 0;
+		top:0;
+		border-radius: 0;
+	}
+
+	.home-link {
+		font-size: 1.5rem;
+	}
+
+	.hamburger {
+		display: flex; /* Show on mobile */
+	}
+
+	.nav-menu {
+		display: none; /* Hide navigation by default */
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+	}
+
+	.mobile-menu {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		align-items: center;
+	}
+
+	.nav-menu.active {
+		display: flex; /* Show navigation when active */
+	}
+
+	.nav {
+		flex-direction: column;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.nav-item {
+		margin: 1rem 0;
+	}
+
+	.nav-item a {
+		font-size: 1.25rem;
+		color: var(--color-blue-90);
+		text-decoration: none;
+	}
+
+	.nav-item a:hover {
+		color: var(--color-blue-50);
+	}
+}
