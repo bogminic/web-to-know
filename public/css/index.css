@@ -305,3 +305,32 @@ article>header {
 	color: #6c757d;
 	content: "/";
 }
+
+.featured-title {
+	font-size: 2rem;
+	line-height: 2.125rem;
+	display: flex;
+	align-items: center;
+	margin: 6.25rem 0 3.75rem 0;
+}
+
+.featured-title::after {
+	content: '';
+	flex-grow: 1;
+	border-bottom: 4px dotted var(--color-blue-90);
+	margin-left: 20px;
+	/* Space between text and dotted line */
+}
+
+@media (max-width: 767px) {
+	.featured-title {
+		margin: 2rem 0 1rem 0;
+	}
+}
+
+/* Medium screens (up 1008px) */
+@media (min-width: 768px) and (max-width: 1008px) {
+	.featured-title {
+		margin: 4rem 0 2rem 0;
+	}
+}
