@@ -1,13 +1,15 @@
 ---
-title: How to CRUD a REST API with Angular
+title: How to CRUD a REST API with Angular and Material UI
 description: Learn CRUD operation with a simple tutorial
-slugOverride: How to CRUD a REST API with Angular
+slugOverride: How to CRUD a REST API with Angular and Material UI
+summary: This tutorial guides you through building an Angular app to manage a list of dogs using a REST API. You'll learn to set up a mock server with JSON-server, create an Angular project, integrate Material-UI, and implement CRUD operations to create, read, update, and delete dog entries.
 eleventyNavigation:
-  key: crud.angular
+  key: crud.angular.material
   parent: nav.tutorials
-date: 2023-01-05
+date: 2024-09-05
 author: bogminic
-picture: "dogs-and-presents.jpg"
+picture: "crud-angular-material.jpg"
+alt: Modern home office space with the blog title 'How to CRUD a REST API with Angular and Material UI' shown at the top
 tags:
   - Tutorials
   - Angular

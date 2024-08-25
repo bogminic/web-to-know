@@ -20,8 +20,8 @@
 	--background-color: #fff;
 
 	--text-color: var(--color-blue-90);
-	--text-color-link: var(--color-blue-50);
-	--text-color-link-active: #5f2b48;
+	--text-color-link: var(--color-blue-90);
+	--text-color-link-active: var(--color-blue-50);
 	--text-color-link-visited: var(--color-green-50);
 
 	--syntax-tab-size: 2;
@@ -96,10 +96,6 @@ mark {
 	background: none;
 }
 
-p:last-child {
-	margin-bottom: 0;
-}
-
 p {
 	line-height: 1.5;
 }
@@ -110,6 +106,7 @@ li {
 
 a[href] {
 	color: var(--text-color-link);
+	font-weight: 700;
 }
 
 a[href]:visited {
@@ -123,10 +120,6 @@ a[href]:active {
 
 main {
 	padding: 1rem;
-}
-
-main :first-child {
-	margin-top: 0;
 }
 
 
@@ -169,62 +162,6 @@ pre:not([class*="language-"]) {
 
 code {
 	word-break: break-all;
-}
-
-/* Posts list */
-.postlist {
-	list-style: none;
-	padding: 0;
-	padding-left: 1.5rem;
-}
-
-.postlist-item {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 1em;
-}
-
-.postlist-authors {
-	display: flex;
-}
-
-.postlist-title {
-	margin: 0;
-}
-
-.postlist-item:before {
-	display: inline-block;
-	pointer-events: none;
-	line-height: 100%;
-	text-align: right;
-	margin-left: -1.5rem;
-}
-
-.postlist-date,
-.postlist-item:before {
-	font-size: 0.8125em;
-	/* 13px /16 */
-	color: var(--color-gray-90);
-}
-
-.postlist-date {
-	word-spacing: -0.5px;
-}
-
-.postlist-link {
-	font-size: 1.1875em;
-	/* 19px /16 */
-	font-weight: 700;
-	flex-basis: calc(100% - 1.5rem);
-	padding-left: .25em;
-	padding-right: .5em;
-	text-underline-position: from-font;
-	text-underline-offset: 0;
-	text-decoration-thickness: 1px;
-}
-
-.postlist-item-active .postlist-link {
-	font-weight: bold;
 }
 
 /* Tags */

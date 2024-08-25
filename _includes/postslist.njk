@@ -1,33 +1,38 @@
-{%- css %}.postlist { counter-reset: start-from {{ (postslistCounter or postslist.length) + 1 }} }{% endcss %}
+{%- css %}{% include "public/css/postlist.css" %}{% endcss %}
 <ol reversed class="postlist">
-{% for post in postslist | getAllPostNotIgnored |  reverse %}
-	<li class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}">
-		<article>
-			<a href="{{ post.url }}" class="postlist-link">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
-			
-			{%- if post.data.picture %}
-			<hr/>
-				{% image post.data.picture, "Dogs", "test", ["300px"] %}
-			<hr/>
-			{%- endif %}
+    {% for post in postslist | getAllPostNotIgnored |  reverse %}
+        <li>
+            <article class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}">
+                {%- if post.data.picture %}
+                    {% image post.data.picture, post.data.alt, "postlist-img", ["300px"] %}
+                {%- endif %}
+                <div class="postlist-content">
+                    <header class="postlist-header">
+                        <h2 class="postlist-title">
+                            {% if post.data.title %}
+                                {{ post.data.title }}
+                            {% else %}
+                                <code>{{ post.url }}</code>
+                            {% endif %}
+                        </h2>
 
-			<time class="postlist-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate("LLLL yyyy") }}</time>
-			{%- set myAuthors = authors | getAuthors(metadata.authors, post.data.author) %}
-			<div class="postlist-authors">
-				{%- for author in myAuthors %}
-				<article>
-					<img src="{{author.photo}}" style="max-height: 100px; padding-right: 10px">
-					<h3 class="postlist-title">{{ author.name }}</h3>
-				</article>
-				{%- endfor %}
-			</div>
-			<ul>
-				{%- for tag in post.data.tags | filterTagList %}
-				{%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-				<li>{{ tag }}</li>
-				{%- endfor %}
-			</ul>
-		</article>	
-	</li>
-{%- endfor %}
+                        <p class="postlist-info">
+                            {%- set myAuthors = authors | getAuthors(metadata.authors, post.data.author) %}
+                            {%- for theAuthor in myAuthors %}
+                                <a href="/authors/{{ theAuthor.key }}">{{ theAuthor.name }}</a>
+                                {%- if not loop.last %}, {% endif %}
+                            {%- endfor %}
+                            •
+                            <time class="postlist-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate("MMMM d, yyyy") }}</time>
+                        </p>
+                    </header>
+                    <p class="postlist-summary">
+                        {{ post.data.summary | safe }}
+                    </p>
+                    <a href="{{ post.url }}" class="postlist-link">Read more &#11166</a>
+                </div>
+               
+            </article>
+        </li>
+    {%- endfor %}
 </ol>

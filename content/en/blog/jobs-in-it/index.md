@@ -1,11 +1,14 @@
 ---
 title: Jobs in IT
 description: Jobs we can find in the Information Technology industry (IT)
+summary: Web development is a rapidly growing field in IT, offering various roles such as business analyst, UI-UX designer, and architect. Each role requires specific skills, from translating business needs into technical specs, designing user interfaces, to structuring the overall web architecture.
 eleventyNavigation:
   key: nav.jobsInIt
   parent: nav.blog
-date: 2023-01-05
+date: 2024-08-23
 author: bogminic,damun
+picture: "jobs-in-it.jpg"
+alt: Modern office space with the blog title 'Jobs in IT' shown at the top
 tags:
   - jobs in IT
 layout: layouts/post.njk

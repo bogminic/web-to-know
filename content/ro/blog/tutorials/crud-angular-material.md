@@ -3,11 +3,12 @@ title: Operații CRUD folosind REST API cu Angular
 description: Operațiile CRUD exemplificate cu Angular în acest tutorial
 slugOverride: CRUD folosind REST API cu Angular
 eleventyNavigation:
-  key: crud.angular.ro
+  key: crud.angular.material.ro
   parent: nav.blog
 date: 2023-01-05
 author: bogminic
-picture: "dogs-and-presents.jpg"
+picture: "crud-angular-material.jpg"
+alt: Modern home office space with the blog title 'How to CRUD a REST API with Angular and Material UI' shown at the top
 tags:
   - Tutorials
   - Angular
