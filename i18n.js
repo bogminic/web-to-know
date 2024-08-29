@@ -6,6 +6,11 @@ module.exports = {
     next: "Next",
     writtenBy: "Written by",
     toRead: 'to read',
+    theLatest: 'The latest',
+    posts: 'Posts',
+    exploreLearnUnderstand: 'Explore, Learn, Understand',
+    welcomeTo: 'Welcome to',
+    readMore: 'Read more',
     footer: {
       allRightsReserved: "All rights reserved",
       usefullLinks: "Useful Links",
@@ -15,10 +20,10 @@ module.exports = {
     nav: {
       home: "Home",
       blog: "Blog",
-      articles: "Articles",
       about: "About us",
       tutorials: "Tutorials",
-      jobsInIt: "Jobs in IT"
+      jobsInIt: "Jobs in IT",
+      menu: "Menu"
     }
   },
   ro: {
@@ -28,6 +33,11 @@ module.exports = {
     next: "Următorul",
     writtenBy: "Scris de",
     toRead: 'de citit',
+    theLatest: 'Ultimele',
+    posts: 'Articole',
+    exploreLearnUnderstand: 'Explorează, Învață, Înțelege',
+    welcomeTo: 'Bine ai venit pe',
+    readMore: 'Citește mai mult',
     footer: {
       allRightsReserved: "Toate drepturile rezervate",
       usefullLinks: "Linkuri utile",
@@ -37,10 +47,10 @@ module.exports = {
     nav: {
       home: "Acasă",
       blog: "Blog",
-      articles: "Articole",
       about: "Despre noi",
       tutorials: "Tutorials",
-      jobsInIt: "Jobs in IT"
+      jobsInIt: "Jobs in IT",
+      menu: "Meniu"
     }
   }
 };

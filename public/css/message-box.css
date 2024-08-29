@@ -36,6 +36,11 @@ body::after {
 	width: 50%;
 }
 
+.box__title {
+	font-size: 2.5rem;
+	line-height: 3rem;
+}
+
 
 /* Small screens */
 @media (max-width: 767px) {

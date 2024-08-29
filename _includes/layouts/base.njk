@@ -42,7 +42,7 @@
             <div class="mobile-menu">
                 <a href="/" class="home-link">{{ metadata.title }}</a>
                 <button type="button" class="hamburger" aria-label="Toggle navigation">
-                    <span class="hamburger-bar" aria-hidden="true">&#9776</span>Menu
+                    <span class="hamburger-bar" aria-hidden="true">&#9776</span>{{ "i18n.nav.menu" | i18n }}
                 </button>
             </div>
             {#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
@@ -73,7 +73,7 @@
                             <a class="footer-link" href="/">{{ "i18n.nav.home" | i18n }}</a>
                         </li>
                         <li>
-                            <a class="footer-link" href="/blog">{{ "i18n.nav.articles" | i18n }}</a>
+                            <a class="footer-link" href="/blog">{{ "i18n.nav.blog" | i18n }}</a>
                         </li>
                         <li>
                             <a class="footer-link" href="/about">{{ "i18n.nav.about" | i18n }}</a>

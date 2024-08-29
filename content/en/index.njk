@@ -8,14 +8,14 @@ numberOfLatestPostsToShow: 3
 
 {%- css %}{% include "public/css/message-box.css" %}{% endcss %}
 <section class="box">
-	<h1 class="box__title">Explore, Learn, Connect: <br/> Welcome to <mark>Webtoknow</mark>!</h1>
+	<h1 class="box__title">{{ "i18n.exploreLearnUnderstand" | i18n }}: <br/> {{ "i18n.welcomeTo" | i18n }} <mark>Webtoknow</mark>!</h1>
 	<img class="box__image" src="/img/undraw/code-thinking.svg" alt="Thinking about code" />
 </section>
 
 
 {% set postsCount = collections.posts | getAllPostNotIgnored | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
-<h2 class="featured-title">The Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h2>
+<h2 class="featured-title">{{ "i18n.theLatest" | i18n }} {{ latestPostsCount }} {{ "i18n.posts" | i18n }}</h2>
 
 {% set postslist = collections.posts | getAllPostNotIgnored | head(-1 * numberOfLatestPostsToShow) %}
 {% set postslistCounter = postsCount %}
