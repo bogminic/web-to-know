@@ -13,17 +13,20 @@
         <link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}"> {#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
         {#- <meta name="generator" content="{{ eleventy.generator }}"> #}
         {#-
-                        		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
-                        		1. You can add to them using `{% css %}`
-                        		2. You can get from them using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
-                        		3. You can do the same for JS: {% js %}{% endjs %} and <script>{% getBundle "js" %}</script>
-                        		4. Learn more: https://github.com/11ty/eleventy-plugin-bundle
-                        		#}
-        {#- Add an arbitrary string to the bundle #} {%- css %}* { box-sizing: border-box; }{% endcss %}
+                                                                        		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
+                                                                        		1. You can add to them using `{% css %}`
+                                                                        		2. You can get from them using `{% getBundle "css" %}` or `{% getBundleFileUrl "css" %}`
+                                                                        		3. You can do the same for JS: {% js %}{% endjs %} and <script>{% getBundle "js" %}</script>
+                                                                        		4. Learn more: https://github.com/11ty/eleventy-plugin-bundle
+                                                                        		#}
+        {#- Add an arbitrary string to the bundle #} {%- css %} * { box-sizing: border-box; }
+        {% endcss %}
         {#- Add the contents of a file to the bundle #}
         {%- css %}
         {% include "public/css/index.css" %}
+        {% include "public/css/grid.css" %}
         {% include "public/css/header.css" %}
+        {% include "public/css/footer.css" %}
         {% endcss %}
         {#- Or add from node_modules #}
         {# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
@@ -33,7 +36,7 @@
         {#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
         {#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
     </head>
-    <body>
+    <body class="grid">
         <a href="#skip" class="visually-hidden">Skip to main content</a>
         <header class="header">
             <div class="mobile-menu">
@@ -57,7 +60,56 @@
         <main id="skip">
             {{ content | safe }}
         </main>
-        <footer></footer>
+        <footer class="footer full">
+            <section class="footer-branding">
+                <h2 class="footer-title">Webtoknow</h2>
+                <p>&copy; 2024 Webtoknow <br/> {{ "i18n.footer.allRightsReserved" | i18n }}</p>
+            </section>
+            <nav class="footer-navigation">
+                <section>
+                    <h3 class="footer-subtitle">{{ "i18n.footer.usefullLinks" | i18n }}</h3>
+                    <ul class="footer-list">
+                        <li>
+                            <a class="footer-link" href="/">{{ "i18n.nav.home" | i18n }}</a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="/blog">{{ "i18n.nav.articles" | i18n }}</a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="/about">{{ "i18n.nav.about" | i18n }}</a>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="footer-subtitle">{{ "i18n.footer.otherProjects" | i18n }} </h3>
+                    <ul class="footer-list">
+                        <li>
+                            <a class="footer-link" href="https://webtoknow.github.io/CSS-Press/">CSS Press</a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="https://humansinlearning.ro/">Human in Learning</a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="https://financial-computing.upb.ro/">Finance Computing Master</a>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3 class="footer-subtitle">{{ "i18n.footer.followUs" | i18n }}</h3>
+                    <ul class="footer-list">
+                        <li>
+                            <a class="footer-link" href="https://www.youtube.com/watch?v=_hJXIVPQhDo">YouTube</a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="#">X</a>
+                        </li>
+                        <li>
+                            <a class="footer-link" href="https://github.com/webtoknow">GitHub</a>
+                        </li>
+                    </ul>
+                </section>
+            </nav>
+        </footer>
         <!-- This page `{{ page.url | htmlBaseUrl }}` was built on {% currentBuildDate %} -->
         <script>
             document.querySelector('.hamburger').addEventListener('click', function () {

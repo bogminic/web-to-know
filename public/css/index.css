@@ -6,6 +6,8 @@
 
 /* Theme colors */
 :root {
+	--color-white: #fff;
+
 	--color-gray-20: #e0e0e0;
 	--color-gray-50: #C0C0C0;
 	--color-gray-90: #333;
@@ -13,11 +15,12 @@
 
 
 	--color-blue-10: #F4F7FC;
+	--color-blue-20: #BCD0FE;
 	--color-blue-30: #626E8A;
 	--color-blue-50: #004FFF;
 	--color-blue-90: #00184D;
 
-	--background-color: #fff;
+	--background-color: var(--color-white);
 
 	--text-color: var(--color-blue-90);
 	--text-color-link: var(--color-blue-90);
@@ -64,11 +67,8 @@ html {
 }
 
 body {
-	max-width: 70rem;
 	font-size: 1.25rem;
-	/* 20px /16 */
 	line-height: 2.125rem;
-	/* 34px /16 */
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
