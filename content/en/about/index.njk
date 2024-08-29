@@ -7,19 +7,19 @@ eleventyNavigation:
 
 <h1> About us </h1>
 
-<p>Welcome to our tech blog, where we bring you the latest updates on web technologies, IOT, security, and IT jobs. Our blog is designed to provide you with a wealth of information and knowledge on these topics, through in-depth tutorials and informative articles.</p>
-<p>Whether you're a beginner looking to learn the basics of web development, or an experienced developer looking to stay up-to-date with the latest trends in IOT and security, our blog has something for you. We cover a wide range of topics, including web development frameworks such as React, Angular, and Vue, as well as back-end technologies like Node.js, Django, and Laravel.</p>
-<p>We also have tutorials on how to set up and use IOT devices, including popular platforms such as Raspberry Pi and Arduino. Our blog also covers a range of security topics, including tips and tricks for keeping your online presence safe, as well as the latest developments in cybersecurity.</p>
-<p>Finally, we also have a section dedicated to IT jobs, where we provide information on the latest job openings, as well as tips for navigating the job market and landing your dream job.</p>
-<p>At our blog, we believe in providing high-quality, informative content that helps our readers stay ahead of the curve in the rapidly evolving world of technology. So, whether you're a beginner or an expert, join us on our journey as we explore the exciting world of web technologies, IOT, security, and IT jobs.</p>
+<p>At Webtoknow, we're dedicated to delivering the latest updates on web technologies, IOT, security, and IT jobs. Our blog is your go-to source for in-depth tutorials and informative articles designed to enrich your knowledge in these areas. Our mission is to deliver high-quality, informative content that empowers our audience to navigate the ever-evolving world of technology with confidence. </p>
+<p>Whether you're a novice seeking to grasp the fundamentals of web development or a seasoned professional aiming to stay on top of the latest trends, our blog caters to your needs. We cover a diverse range of topics, including popular web development frameworks like React, Angular, and Vue, as well as back-end technologies such as Node.js, Java, and Spring</p>
+<p>We provide comprehensive tutorials on setting up and utilizing IOT devices, including renowned platforms like Raspberry Pi and Arduino. Our blog also delves into various security topics, offering valuable insights and the latest cybersecurity developments to help safeguard your online presence.</p>
+<p>We offer a dedicated IT jobs section offers insights into the current job market landscape, featuring the latest job openings and providing valuable tips for job seekers.</p>
 
 <h2>Team</h2>
 
 {% for author in metadata.authors %}
   <article>
-    <img src="{{ author.photo }}" alt="{{ author.name }}" width="100" height="100">
+    {% image author.photo, author.name, "about-img", ["100px"] %}
     <h3>{{ author.name }}</h3>
-    <p>{{ author.bio }}</p>
+    {%- set hi = "i18n.team." + author.hi %}
+    <p>{{ hi | i18n }}</p>
   </article>
 {% endfor %}
 
