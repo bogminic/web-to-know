@@ -3,7 +3,7 @@ title: What does a UX/UI do?
 description: What does a UX/UI do?
 slugOverride: What does a UI-UX Designer do
 summary: A UX/UI Designer ensures users have a seamless experience with applications, focusing on both user experience (UX) and user interface (UI). They research user needs, create prototypes, and collaborate with teams to design intuitive, visually appealing products. Skills required include UX research, design tools, empathy, collaboration, and attention to detail.
-date: 2024-09-05
+date: 2024-08-29
 author: damun
 picture: "ui-ux.jpg"
 alt: Modern designer home office space with the blog title 'What does a UX/UI do?' shown at the top

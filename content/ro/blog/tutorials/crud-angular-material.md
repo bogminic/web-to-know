@@ -5,7 +5,7 @@ slugOverride: CRUD folosind REST API cu Angular
 eleventyNavigation:
   key: crud.angular.material.ro
   parent: nav.blog
-date: 2023-01-05
+date: 2024-08-29
 author: bogminic
 picture: "crud-angular-material.jpg"
 alt: Modern home office space with the blog title 'How to CRUD a REST API with Angular and Material UI' shown at the top
